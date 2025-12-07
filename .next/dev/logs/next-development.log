@@ -1,0 +1,161 @@
+[02:36:20.100] Server  ERROR    ⨯ ./app/page.tsx:4:1
+Module not found: Can't resolve '@/components/products-section'
+  2 | import { LogoCloud } from "@/components/logo-cloud"
+  3 | import { CategoriesSection } from "@/components/categories-section"
+> 4 | import { ProductsSection } from "@/components/products-section"
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { TestimonialsSection } from "@/components/testimonials-section"
+  6 | import { NewsletterSection } from "@/components/newsletter-section"
+  7 | import { Footer } from "@/components/footer"
+
+Import map: aliased to relative './components/products-section' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:20.104] Server  ERROR    ⨯ ./app/page.tsx:4:1
+Module not found: Can't resolve '@/components/products-section'
+  2 | import { LogoCloud } from "@/components/logo-cloud"
+  3 | import { CategoriesSection } from "@/components/categories-section"
+> 4 | import { ProductsSection } from "@/components/products-section"
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { TestimonialsSection } from "@/components/testimonials-section"
+  6 | import { NewsletterSection } from "@/components/newsletter-section"
+  7 | import { Footer } from "@/components/footer"
+
+Import map: aliased to relative './components/products-section' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:20.135] Server  ERROR    ⨯ ./app/page.tsx:4:1
+Module not found: Can't resolve '@/components/products-section'
+  2 | import { LogoCloud } from "@/components/logo-cloud"
+  3 | import { CategoriesSection } from "@/components/categories-section"
+> 4 | import { ProductsSection } from "@/components/products-section"
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { TestimonialsSection } from "@/components/testimonials-section"
+  6 | import { NewsletterSection } from "@/components/newsletter-section"
+  7 | import { Footer } from "@/components/footer"
+
+Import map: aliased to relative './components/products-section' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:20.136] Server  ERROR    ⨯ ./app/page.tsx:4:1
+Module not found: Can't resolve '@/components/products-section'
+  2 | import { LogoCloud } from "@/components/logo-cloud"
+  3 | import { CategoriesSection } from "@/components/categories-section"
+> 4 | import { ProductsSection } from "@/components/products-section"
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { TestimonialsSection } from "@/components/testimonials-section"
+  6 | import { NewsletterSection } from "@/components/newsletter-section"
+  7 | import { Footer } from "@/components/footer"
+
+Import map: aliased to relative './components/products-section' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:20.137] Server  ERROR    ⨯ ./app/page.tsx:4:1
+Module not found: Can't resolve '@/components/products-section'
+  2 | import { LogoCloud } from "@/components/logo-cloud"
+  3 | import { CategoriesSection } from "@/components/categories-section"
+> 4 | import { ProductsSection } from "@/components/products-section"
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { TestimonialsSection } from "@/components/testimonials-section"
+  6 | import { NewsletterSection } from "@/components/newsletter-section"
+  7 | import { Footer } from "@/components/footer"
+
+Import map: aliased to relative './components/products-section' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:20.144] Server  ERROR    ⨯ ./app/page.tsx:4:1
+Module not found: Can't resolve '@/components/products-section'
+  2 | import { LogoCloud } from "@/components/logo-cloud"
+  3 | import { CategoriesSection } from "@/components/categories-section"
+> 4 | import { ProductsSection } from "@/components/products-section"
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { TestimonialsSection } from "@/components/testimonials-section"
+  6 | import { NewsletterSection } from "@/components/newsletter-section"
+  7 | import { Footer } from "@/components/footer"
+
+Import map: aliased to relative './components/products-section' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:20.145] Server  ERROR    ⨯ ./app/page.tsx:4:1
+Module not found: Can't resolve '@/components/products-section'
+  2 | import { LogoCloud } from "@/components/logo-cloud"
+  3 | import { CategoriesSection } from "@/components/categories-section"
+> 4 | import { ProductsSection } from "@/components/products-section"
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { TestimonialsSection } from "@/components/testimonials-section"
+  6 | import { NewsletterSection } from "@/components/newsletter-section"
+  7 | import { Footer } from "@/components/footer"
+
+Import map: aliased to relative './components/products-section' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:20.145] Server  ERROR    ⨯ ./app/page.tsx:4:1
+Module not found: Can't resolve '@/components/products-section'
+  2 | import { LogoCloud } from "@/components/logo-cloud"
+  3 | import { CategoriesSection } from "@/components/categories-section"
+> 4 | import { ProductsSection } from "@/components/products-section"
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { TestimonialsSection } from "@/components/testimonials-section"
+  6 | import { NewsletterSection } from "@/components/newsletter-section"
+  7 | import { Footer } from "@/components/footer"
+
+Import map: aliased to relative './components/products-section' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:20.145] Server  ERROR    ⨯ ./app/page.tsx:4:1
+Module not found: Can't resolve '@/components/products-section'
+  2 | import { LogoCloud } from "@/components/logo-cloud"
+  3 | import { CategoriesSection } from "@/components/categories-section"
+> 4 | import { ProductsSection } from "@/components/products-section"
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { TestimonialsSection } from "@/components/testimonials-section"
+  6 | import { NewsletterSection } from "@/components/newsletter-section"
+  7 | import { Footer } from "@/components/footer"
+
+Import map: aliased to relative './components/products-section' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:20.151] Server  ERROR    ⨯ ./app/page.tsx:4:1
+Module not found: Can't resolve '@/components/products-section'
+  2 | import { LogoCloud } from "@/components/logo-cloud"
+  3 | import { CategoriesSection } from "@/components/categories-section"
+> 4 | import { ProductsSection } from "@/components/products-section"
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import { TestimonialsSection } from "@/components/testimonials-section"
+  6 | import { NewsletterSection } from "@/components/newsletter-section"
+  7 | import { Footer } from "@/components/footer"
+
+Import map: aliased to relative './components/products-section' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:20.154] Server  LOG      ✓ Compiled in 439ms
