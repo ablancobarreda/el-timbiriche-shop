@@ -50,7 +50,7 @@ export function Header() {
               Productos
             </Link>
             <Link
-              href="/seguimiento"
+              href="/tracking"
               className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
             >
               Seguimiento

@@ -141,7 +141,7 @@ export default function AdminProductsPage() {
                 setPage(1)
               }}
             >
-              <SelectTrigger className="w-full sm:w-48 bg-background h-10">
+              <SelectTrigger className="w-full sm:w-48 bg-background h-10 min-h-10">
                 <SelectValue placeholder="Categoria" />
               </SelectTrigger>
               <SelectContent>
