@@ -2,7 +2,7 @@ import Image from "next/image"
 import { CategoryPageClient } from "./category-page-client"
 import type { Product } from "@/lib/store-context"
 
-const LARAVEL_API_BASE_URL = process.env.LARAVEL_API_BASE_URL || "http://localhost:8000/api"
+const LARAVEL_API_BASE_URL = process.env.NEXT_PUBLIC_LARAVEL_API_BASE_URL || "http://localhost:8000/api"
 
 interface Category {
   id: number

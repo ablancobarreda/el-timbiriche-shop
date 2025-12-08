@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 
-const LARAVEL_API_BASE_URL = process.env.NEXT_PUBLIC_LARAVEL_API_BASE_URL || process.env.LARAVEL_API_BASE_URL || "http://localhost:8000/api"
+const LARAVEL_API_BASE_URL = process.env.NEXT_PUBLIC_LARAVEL_API_BASE_URL || "http://localhost:8000/api"
 
 interface LaravelProductImage {
   id: number

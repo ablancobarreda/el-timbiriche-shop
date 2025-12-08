@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-const LARAVEL_API_BASE_URL = process.env.NEXT_PUBLIC_LARAVEL_API_BASE_URL || process.env.LARAVEL_API_BASE_URL || "http://localhost:8000/api"
+const LARAVEL_API_BASE_URL = process.env.NEXT_PUBLIC_LARAVEL_API_BASE_URL || "http://localhost:8000/api"
 
 interface LaravelCategory {
   id: number
@@ -22,7 +22,7 @@ interface CategoryResponse {
 export async function GET() {
   try {
     // Validate API URL is configured
-    if (!LARAVEL_API_BASE_URL || LARAVEL_API_BASE_URL === "http://localhost:8000/api") {
+    if (!LARAVEL_API_BASE_URL) {
       console.error("LARAVEL_API_BASE_URL is not configured")
       return NextResponse.json(
         { error: "API configuration error", data: [] },
