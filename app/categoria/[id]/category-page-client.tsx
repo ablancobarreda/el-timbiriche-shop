@@ -203,72 +203,175 @@ export function CategoryPageClient({ initialProducts, category }: CategoryPageCl
 
           {filteredProducts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {filteredProducts.map((product) => (
-                <Card key={product.id} className="group bg-card border-border hover:shadow-lg transition-shadow">
-                  <CardContent className=" flex flex-col justify-between p-4 h-full">
-                    <div className="relative aspect-square rounded-xl overflow-hidden bg-muted mb-4">
-                      <Image
-                        src={product.image || "/images/logo.png"}
-                        alt={product.name}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute top-2 left-2 flex flex-col gap-1">
-                        {product.isNew && (
-                          <span className="px-2 py-1 bg-primary text-primary-foreground text-xs font-medium rounded-full">
-                            Nuevo
-                          </span>
-                        )}
-                        {product.isSale && (
-                          <span className="px-2 py-1 bg-destructive text-card text-xs font-medium rounded-full">
-                            Oferta
-                          </span>
-                        )}
-                      </div>
-                      <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              {filteredProducts.map((product) => {
+                const hasVariations = product.variations && product.variations.length > 0
+
+                // Calculate price range if variations have different prices
+                const getPriceRange = () => {
+                  if (!hasVariations || !product.variations) return null
+                  
+                  const prices = product.variations
+                    .filter(v => v.is_available && v.stock > 0)
+                    .map(v => ({
+                      usd: v.effective_sale_price_usd ?? product.price_usd,
+                      cup: v.effective_sale_price_cup ?? product.price_cup
+                    }))
+                  
+                  if (prices.length === 0) return null
+                  
+                  const minPrice = prices.reduce((min, p) => p.usd < min.usd ? p : min, prices[0])
+                  const maxPrice = prices.reduce((max, p) => p.usd > max.usd ? p : max, prices[0])
+                  
+                  if (minPrice.usd === maxPrice.usd) return null
+                  
+                  return {
+                    min: minPrice,
+                    max: maxPrice
+                  }
+                }
+
+                const priceRange = getPriceRange()
+                const displayPrice = priceRange 
+                  ? `${formatPrice(priceRange.min.usd, priceRange.min.cup)} - ${formatPrice(priceRange.max.usd, priceRange.max.cup)}`
+                  : formatPrice(product.price_usd, product.price_cup)
+
+                // Extract unique attribute values from variations
+                const getAvailableAttributes = () => {
+                  if (!hasVariations || !product.variations) return null
+                  
+                  const availableVariations = product.variations.filter(v => v.is_available && v.stock > 0)
+                  if (availableVariations.length === 0) return null
+                  
+                  const attributes: Record<string, Set<string>> = {}
+                  
+                  availableVariations.forEach(variation => {
+                    if (variation.attributes) {
+                      Object.entries(variation.attributes).forEach(([key, value]) => {
+                        if (!attributes[key]) {
+                          attributes[key] = new Set()
+                        }
+                        attributes[key].add(value)
+                      })
+                    }
+                  })
+                  
+                  return Object.keys(attributes).length > 0 ? attributes : null
+                }
+
+                const availableAttributes = getAvailableAttributes()
+
+                return (
+                  <Card key={product.id} className="group bg-card border-border hover:shadow-lg transition-shadow">
+                    <CardContent className=" flex flex-col justify-between p-4 h-full">
+                      <div className="relative aspect-square rounded-xl overflow-hidden bg-muted mb-4">
+                        <Image
+                          src={product.image || "/images/logo.png"}
+                          alt={product.name}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute top-2 left-2 flex flex-col gap-1">
+                          {product.isNew && (
+                            <span className="px-2 py-1 bg-primary text-primary-foreground text-xs font-medium rounded-full">
+                              Nuevo
+                            </span>
+                          )}
+                          {product.isSale && (
+                            <span className="px-2 py-1 bg-destructive text-card text-xs font-medium rounded-full">
+                              Oferta
+                            </span>
+                          )}
+                          {hasVariations && product.variations && (
+                            <span className="px-2 py-1 bg-blue-500 text-white text-xs font-medium rounded-full">
+                              {product.variations.length} {product.variations.length === 1 ? 'variación' : 'variaciones'}
+                            </span>
+                          )}
+                        </div>
+                        <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                          
+                          <Button
+                            size="icon"
+                            variant="secondary"
+                            className="h-8 w-8 rounded-full bg-card/90 backdrop-blur hover:bg-primary hover:text-primary-foreground"
+                            onClick={() => setQuickViewProduct(product)}
+                          >
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                        </div>
                         
-                        <Button
-                          size="icon"
-                          variant="secondary"
-                          className="h-8 w-8 rounded-full bg-card/90 backdrop-blur hover:bg-primary hover:text-primary-foreground"
-                          onClick={() => setQuickViewProduct(product)}
-                        >
-                          <Eye className="h-4 w-4" />
-                        </Button>
                       </div>
-                      
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground mb-1">{product.category}</p>
-                      <h3 className="font-medium text-foreground text-sm mb-2 line-clamp-2">{product.name}</h3>
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold text-primary">{formatPrice(product.price_usd, product.price_cup)}</span>
-                        {product.originalPrice_usd && (
-                          <span className="text-sm text-muted-foreground line-through">
-                            {formatPrice(product.originalPrice_usd || 0, product.originalPrice_cup || 0)}
-                          </span>
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1">{product.category}</p>
+                        <h3 className="font-medium text-foreground text-sm mb-2 line-clamp-2">{product.name}</h3>
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="font-semibold text-primary">{displayPrice}</span>
+                          {product.originalPrice_usd && (
+                            <span className="text-sm text-muted-foreground line-through">
+                              {formatPrice(product.originalPrice_usd || 0, product.originalPrice_cup || 0)}
+                            </span>
+                          )}
+                        </div>
+                        
+                        {/* Show available variations attributes */}
+                        {availableAttributes && (
+                          <div className="space-y-1.5 mb-2">
+                            {Object.entries(availableAttributes).map(([key, values]) => {
+                              const attributeName = key === 'color' ? 'Colores' : key === 'modelo' ? 'Modelos' : key.charAt(0).toUpperCase() + key.slice(1)
+                              const valuesArray = Array.from(values)
+                              
+                              return (
+                                <div key={key} className="flex flex-col gap-1">
+                                  <span className="text-xs text-muted-foreground font-medium">{attributeName}:</span>
+                                  <div className="flex flex-wrap gap-1.5">
+                                    {valuesArray.slice(0, 3).map((value, idx) => (
+                                      <span
+                                        key={idx}
+                                        className="text-xs px-2 py-0.5 bg-muted rounded-full text-foreground"
+                                      >
+                                        {value}
+                                      </span>
+                                    ))}
+                                    {valuesArray.length > 3 && (
+                                      <span className="text-xs px-2 py-0.5 text-muted-foreground">
+                                        +{valuesArray.length - 3} más
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              )
+                            })}
+                          </div>
                         )}
                       </div>
-                    </div>
-                    <div className=" mt-4">
-                        <Button
-                          className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
-                          size="sm"
-                          onClick={() => {
-                            if (product.has_variations && product.variations && product.variations.length > 0) {
-                              setQuickViewProduct(product)
-                            } else {
-                              addToCart(product)
-                            }
-                          }}
-                        >
-                          <ShoppingBag className="h-4 w-4 mr-2" />
-                          Agregar
-                        </Button>
-                      </div>
-                  </CardContent>
-                </Card>
-              ))}
+                      <div className=" mt-4">
+                          <Button
+                            className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
+                            size="sm"
+                            onClick={() => {
+                              if (hasVariations) {
+                                setQuickViewProduct(product)
+                              } else {
+                                addToCart(product)
+                              }
+                            }}
+                          >
+                            {hasVariations ? (
+                              <>
+                                <Eye className="h-4 w-4 mr-2" />
+                                Ver Opciones
+                              </>
+                            ) : (
+                              <>
+                                <ShoppingBag className="h-4 w-4 mr-2" />
+                                Agregar
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                    </CardContent>
+                  </Card>
+                )
+              })}
             </div>
           ) : (
             <div className="text-center py-16">

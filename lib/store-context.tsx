@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { createContext, useContext, useState, useCallback, useMemo, useEffect, useRef } from "react"
+import { type ThemeSlug, themeConfigs } from "./theme-types"
 
 export interface ProductVariation {
   id: number
@@ -63,6 +64,10 @@ interface StoreContextType {
   setSearchQuery: (query: string) => void
   isSearchOpen: boolean
   setIsSearchOpen: (open: boolean) => void
+  activeTheme: ThemeSlug
+  setActiveTheme: (theme: ThemeSlug) => void
+  isThemeActive: boolean
+  themeConfig: typeof themeConfigs.default
 }
 
 const StoreContext = createContext<StoreContextType | undefined>(undefined)
@@ -104,6 +109,8 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [activeTheme, setActiveTheme] = useState<ThemeSlug>("default")
+  const [isThemeLoaded, setIsThemeLoaded] = useState(false)
   const isInitialMount = useRef(true)
 
   // Load cart from localStorage only on client side after mount
@@ -122,6 +129,33 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       saveCartToStorage(cart)
     }
   }, [cart])
+
+  useEffect(() => {
+    const fetchActiveTheme = async () => {
+
+      const URL = process.env.NEXT_PUBLIC_LARAVEL_API_BASE_URL  || "http://localhost:8000/api"
+
+      try {
+        const response = await fetch(`${URL}/themes/active`)
+        if (response.ok) {
+          const data = await response.json()
+          if (data?.data?.slug && themeConfigs[data.data.slug as ThemeSlug]) {
+            setActiveTheme(data.data.slug as ThemeSlug)
+          }
+        }
+      } catch (error) {
+        // If API fails, keep default theme
+        console.log("Theme API not available, using default theme")
+      } finally {
+        setIsThemeLoaded(true)
+      }
+    }
+
+    fetchActiveTheme()
+  }, [])
+
+  const isThemeActive = activeTheme !== "default"
+  const themeConfig = themeConfigs[activeTheme]
 
   const exchangeRate = currency === "CUP" ? EXCHANGE_RATE_CUP : 1
 
@@ -266,6 +300,10 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         setSearchQuery,
         isSearchOpen,
         setIsSearchOpen,
+        activeTheme,
+        setActiveTheme,
+        isThemeActive,
+        themeConfig,
       }}
     >
       {children}

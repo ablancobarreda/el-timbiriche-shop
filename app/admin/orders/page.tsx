@@ -42,8 +42,7 @@ const STATUS_ICONS: Record<OrderStatus, React.ElementType> = {
     pending: Clock,
     confirmed: CheckCircle,
     processing: Package,
-    shipped: Truck,
-    delivered: CheckCircle,
+    completed: CheckCircle,
     cancelled: XCircle,
   }
 
@@ -107,17 +106,49 @@ export default function AdminOrdersPage() {
 
   const handleUpdateOrder = async () => {
     if (!selectedOrder) return
+    
+    // Validate status
+    if (!updateData.status) {
+      alert("Por favor, selecciona un estado")
+      return
+    }
+
     setIsUpdating(true)
 
-    await fetch(`/api/admin/orders/${selectedOrder.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updateData),
-    })
+    try {
+      // Update status using the correct endpoint
+      const response = await fetch(`/api/admin/orders/${selectedOrder.id}/status`, {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${typeof window !== "undefined" ? localStorage.getItem("admin_token") : ""}`,
+        },
+        body: JSON.stringify({
+          status: updateData.status,
+        }),
+      })
 
-    mutate()
-    setIsUpdating(false)
-    setSelectedOrder(null)
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || errorData.message || "Error al actualizar el estado del pedido")
+      }
+
+      // Refresh the orders list
+      await mutate()
+      
+      // Close dialog and reset
+      setSelectedOrder(null)
+      setUpdateData({
+        status: "" as OrderStatus,
+        tracking_number: "",
+        notes: "",
+      })
+    } catch (error) {
+      console.error("Error updating order status:", error)
+      alert(error instanceof Error ? error.message : "Error al actualizar el estado del pedido. Por favor, intenta de nuevo.")
+    } finally {
+      setIsUpdating(false)
+    }
   }
 
   const formatDate = (dateString: string) => {
@@ -145,7 +176,7 @@ export default function AdminOrdersPage() {
                   setSearch(e.target.value)
                   setPage(1)
                 }}
-                className="pl-10 bg-background"
+                className="pl-10 bg-background h-10"
               />
             </div>
             <Select
@@ -155,7 +186,7 @@ export default function AdminOrdersPage() {
                 setPage(1)
               }}
             >
-              <SelectTrigger className="w-full sm:w-48 bg-background">
+              <SelectTrigger className="w-full sm:w-48 bg-background h-10">
                 <SelectValue placeholder="Estado" />
               </SelectTrigger>
               <SelectContent>
@@ -190,7 +221,7 @@ export default function AdminOrdersPage() {
                   return (
                     <TableRow key={order.id} className="border-border">
                       <TableCell>
-                        <p className="font-medium text-primary">{order.id}</p>
+                        <p className="font-medium text-primary">{order.order_number}</p>
                         {order.tracking_number && (
                           <p className="text-xs text-muted-foreground">{order.tracking_number}</p>
                         )}
@@ -343,7 +374,7 @@ export default function AdminOrdersPage() {
                     <div key={index} className="flex items-center gap-3 p-3 rounded-lg border border-border">
                       <div className="h-14 w-14 rounded-lg bg-secondary overflow-hidden flex-shrink-0">
                         <Image
-                          src={item.image || "/placeholder.svg"}
+                          src={item.image_url || "/images/logo-placeholder.png"}
                           alt={item.product_name}
                           width={56}
                           height={56}
@@ -355,7 +386,8 @@ export default function AdminOrdersPage() {
                         {item.variation && <p className="text-xs text-muted-foreground">{item.variation}</p>}
                         <p className="text-xs text-muted-foreground">Cantidad: {item.quantity}</p>
                       </div>
-                      <p className="font-semibold text-foreground">${item.price * item.quantity}</p>
+                      <p className="font-semibold text-foreground">${item.price_usd * item.quantity}</p>
+                      <p className="font-semibold text-foreground">${item.price_cup * item.quantity}</p>
                     </div>
                   ))}
                 </div>

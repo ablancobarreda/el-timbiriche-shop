@@ -85,19 +85,18 @@ export async function GET(request: NextRequest) {
         }))
 
         // Map Laravel status to frontend status
-        const statusMap: Record<string, "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled"> = {
+        const statusMap: Record<string, "pending" | "confirmed" | "processing" | "completed" | "cancelled"> = {
           pending: "pending",
           confirmed: "confirmed",
           processing: "processing",
-          shipped: "shipped",
-          completed: "delivered", // Laravel uses "completed", frontend uses "delivered"
-          delivered: "delivered",
+          completed: "completed",
           cancelled: "cancelled",
         }
         const mappedStatus = statusMap[order.status?.toLowerCase() || ""] || "pending"
 
         return {
-          id: order.order_number || order.id?.toString() || "",
+          id: order.id?.toString() || "",
+          order_number: order.order_number  || "",
           customer_name: order.customer_name || "",
           customer_email: order.customer_email || "",
           customer_phone: order.customer_phone || "",

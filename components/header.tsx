@@ -7,6 +7,8 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { useStore } from "@/lib/store-context"
 import { CurrencySelector } from "@/components/currency-selector"
+import { ThemeToggle } from "@/components/theme-toggle"
+import { ThemeDecorations } from "@/components/theme-decorations"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -63,6 +65,7 @@ export function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-2">
+            <ThemeToggle />
             <CurrencySelector />
             <Button
               variant="ghost"
@@ -94,6 +97,7 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-2">
+            <ThemeToggle />
             <CurrencySelector />
             <Button variant="ghost" size="icon" className="relative" onClick={() => setIsCartOpen(true)}>
               <ShoppingBag className="h-5 w-5" />

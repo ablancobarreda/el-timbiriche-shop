@@ -8,6 +8,7 @@ import { CartSidebar } from "@/components/cart-sidebar"
 import { QuickViewModal } from "@/components/quick-view-modal"
 import { SearchModal } from "@/components/search-modal"
 import { ConditionalHeader } from "@/components/conditional-header"
+import { ThemeEffects } from "@/components/theme-effects"
 import { Suspense } from "react"
 
 const poppins = Poppins({
@@ -29,20 +30,11 @@ export const metadata: Metadata = {
   generator: "v0.app",
   icons: {
     icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
+      { url: "/images/logo.png", media: "(prefers-color-scheme: light)" },
+      { url: "/images/logo.png", media: "(prefers-color-scheme: dark)" },
+      { url: "/images/logo.png", type: "image/png" },
     ],
-    apple: "/apple-icon.png",
+    apple: "/images/logo.png",
   },
 }
 
@@ -52,16 +44,13 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es">
       <body className={`${poppins.variable} ${playfair.variable} font-sans antialiased`}>
         <StoreProvider>
           <Suspense fallback={null}>
+            <ThemeEffects />
             <ConditionalHeader />
             {children}
             <CartSidebar />

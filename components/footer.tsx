@@ -47,7 +47,7 @@ export function Footer() {
             <h4 className="font-semibold text-lg mb-4">Enlaces Rápidos</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="#" className="text-card/70 hover:text-primary transition-colors text-sm">
+                <Link href="/" className="text-card/70 hover:text-primary transition-colors text-sm">
                   Inicio
                 </Link>
               </li>
@@ -79,27 +79,27 @@ export function Footer() {
             <h4 className="font-semibold text-lg mb-4">Atención al Cliente</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="#" className="text-card/70 hover:text-primary transition-colors text-sm">
+                <Link href="/faq" className="text-card/70 hover:text-primary transition-colors text-sm">
                   Centro de Ayuda
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-card/70 hover:text-primary transition-colors text-sm">
+                <Link href="/tracking" className="text-card/70 hover:text-primary transition-colors text-sm">
                   Seguir mi Pedido
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-card/70 hover:text-primary transition-colors text-sm">
+                <Link href="/faq" className="text-card/70 hover:text-primary transition-colors text-sm">
                   Devoluciones
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-card/70 hover:text-primary transition-colors text-sm">
+                <Link href="/faq" className="text-card/70 hover:text-primary transition-colors text-sm">
                   Políticas de Envío
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-card/70 hover:text-primary transition-colors text-sm">
+                <Link href="/faq" className="text-card/70 hover:text-primary transition-colors text-sm">
                   Preguntas Frecuentes
                 </Link>
               </li>
@@ -131,10 +131,10 @@ export function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-card/50 text-sm">© 2025 El Timbiriche Shop. Todos los derechos reservados.</p>
             <div className="flex items-center gap-6">
-              <Link href="#" className="text-card/50 hover:text-primary transition-colors text-sm">
+              <Link href="/terms" className="text-card/50 hover:text-primary transition-colors text-sm">
                 Términos y Condiciones
               </Link>
-              <Link href="#" className="text-card/50 hover:text-primary transition-colors text-sm">
+              <Link href="/privacy" className="text-card/50 hover:text-primary transition-colors text-sm">
                 Política de Privacidad
               </Link>
             </div>
