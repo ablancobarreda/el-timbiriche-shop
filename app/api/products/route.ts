@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-const LARAVEL_API_BASE_URL = process.env.LARAVEL_API_BASE_URL || "http://localhost:8000/api"
+const LARAVEL_API_BASE_URL = process.env.NEXT_PUBLIC_LARAVEL_API_BASE_URL || process.env.LARAVEL_API_BASE_URL || "http://localhost:8000/api"
 
 interface LaravelProductImage {
   id: number
@@ -121,6 +121,15 @@ function transformProduct(laravelProduct: LaravelProduct) {
 
 export async function GET() {
   try {
+    // Validate API URL is configured
+    if (!LARAVEL_API_BASE_URL || LARAVEL_API_BASE_URL === "http://localhost:8000/api") {
+      console.error("LARAVEL_API_BASE_URL is not configured")
+      return NextResponse.json(
+        { error: "API configuration error", data: [] },
+        { status: 500 }
+      )
+    }
+
     const response = await fetch(`${LARAVEL_API_BASE_URL}/products`, {
       headers: {
         "Content-Type": "application/json",
@@ -130,10 +139,24 @@ export async function GET() {
     })
 
     if (!response.ok) {
-      throw new Error(`Laravel API error: ${response.status}`)
+      const errorText = await response.text()
+      console.error(`Laravel API error: ${response.status}`, errorText)
+      return NextResponse.json(
+        { error: `API error: ${response.status}`, data: [] },
+        { status: response.status }
+      )
     }
 
     const laravelData: ProductResponse = await response.json()
+
+    // Validate response structure
+    if (!laravelData || !Array.isArray(laravelData.data)) {
+      console.error("Invalid response structure from Laravel API", laravelData)
+      return NextResponse.json(
+        { error: "Invalid API response", data: [] },
+        { status: 500 }
+      )
+    }
 
     // Transform Laravel response to match component expectations
     const products = laravelData.data
@@ -143,6 +166,9 @@ export async function GET() {
     return NextResponse.json(products)
   } catch (error) {
     console.error("Error fetching products from Laravel API:", error)
-    return NextResponse.json({ error: "Failed to fetch products" }, { status: 500 })
+    return NextResponse.json(
+      { error: "Failed to fetch products", data: [] },
+      { status: 500 }
+    )
   }
 }
