@@ -288,3 +288,63 @@
 .animation-delay-800 {
   animation-delay: 800ms;
 }
+
+/* WhatsApp Floating Chat - Prevent closing on click inside */
+.floating-whatsapp-chatbox * {
+  pointer-events: auto !important;
+}
+
+.floating-whatsapp-chatbox input,
+.floating-whatsapp-chatbox textarea,
+.floating-whatsapp-chatbox button {
+  pointer-events: auto !important;
+}
+
+.floating-whatsapp-chatbox {
+  pointer-events: auto !important;
+}
+
+/* WhatsApp Button - Pink Theme */
+.whatsappButton,
+div.whatsappButton,
+div.floating-whatsapp-button,
+[class*="whatsappButton"],
+[class*="floating-whatsapp-button"] {
+  background-color: #e25274 !important;
+}
+
+.whatsappButton:hover,
+div.whatsappButton:hover,
+div.floating-whatsapp-button:hover,
+[class*="whatsappButton"]:hover,
+[class*="floating-whatsapp-button"]:hover {
+  background-color: #e25274 !important;
+}
+
+/* Outer ring (pulse animation) - Pink */
+.whatsappButton:after,
+div.whatsappButton:after,
+div.floating-whatsapp-button:after,
+[class*="whatsappButton"]:after,
+[class*="floating-whatsapp-button"]:after {
+  border-color: #e25274 !important;
+  box-shadow: 0 0 0 0 rgba(226, 82, 116, 0) !important;
+  animation: _pulse 1.2s infinite !important;
+}
+
+.chatHeader,
+.floating-whatsapp-chatbox-header,
+[class*="chatHeader"] {
+  background-color: #e25274 !important;
+}
+
+/* Override the original _pulse animation with pink color */
+/* This must be defined after the component CSS loads to override the green color */
+@keyframes _pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(226, 82, 116, 0.75);
+  }
+  100% {
+    box-shadow: 0 0 0 15px rgba(226, 82, 116, 0);
+  }
+}

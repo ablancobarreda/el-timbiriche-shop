@@ -9,6 +9,7 @@ import { QuickViewModal } from "@/components/quick-view-modal"
 import { SearchModal } from "@/components/search-modal"
 import { ConditionalHeader } from "@/components/conditional-header"
 import { ThemeEffects } from "@/components/theme-effects"
+import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Suspense } from "react"
 
 const poppins = Poppins({
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <CartSidebar />
             <QuickViewModal />
             <SearchModal />
+            <WhatsAppButton />
           </Suspense>
         </StoreProvider>
         <Analytics />
